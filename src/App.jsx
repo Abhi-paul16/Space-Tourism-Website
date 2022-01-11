@@ -1,5 +1,5 @@
 
-import { Routes , Route  } from 'react-router-dom';
+import { Routes , Route ,Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import "./App.css"
@@ -11,9 +11,11 @@ function App() {
  <Navbar/>
   <Routes >
     <Route path="/" element ={<Home/>} />
-    <Route path="Destination" element ={<Destination/>} />
+    <Route path="/Destination" element ={<Destination />}>
+      <Route path = "Mars" />
+    </Route> 
   </Routes>
-      
+  <Outlet/>
     </div>
   );
 }
