@@ -1,48 +1,88 @@
-import React from 'react'
-import { Link, Outlet } from 'react-router-dom';
+import React,{useState} from 'react'
+import { Link } from 'react-router-dom';
 import styled from 'styled-components'
+//framer motion
+import { motion } from 'framer-motion';
+
+//images
 import backgroundImage from '../images/destination/background-destination-desktop.jpg';
 import moon from "../images/destination/image-moon.png"
+import mars from "../images/destination/image-mars.png"
+import Europa from "../images/destination/image-europa.png"
+import Titan from "../images/destination/image-titan.png"
 import data from "../data.json"
 
  const Destination = () => {
      const DestinationData = data.destinations;
-     console.log(DestinationData.map)
-   
+    
+    const [name , setName] = useState(DestinationData[0].name)
+    const [discription , setDiscription] = useState(DestinationData[0].description)
+    const [distance , setDistance ] = useState(DestinationData[0].distance)
+    const [travel , setTravel] = useState(DestinationData[0].travel)
+    const [image , setImage] = useState(moon)
+    const [color , setColor] = useState("color-of")
      return (
          <Main>
- 
+              
              <ContenWrapper>
              <DestinationView>
-                  <img src={moon} alt="" />
+             <Heading>
+                 <h2><span>01</span> Pick up your Destination</h2>
+                 </Heading> 
+                  <img src={image} alt="" />
+                  
              </DestinationView>
  
  
              <DestinationContent>
                  <PickupDestination>
-                   <Link to="/Destination/Moon"> Moon </Link>
-                   <Link to="/Destination/Mars"  > Mars </Link>
-                   <Link to="/"> Europa </Link>
-                   <Link to="/"> Titan </Link>
+                   <Link
+                   onClick={()=> {setName(DestinationData[0].name);
+                    setDiscription(DestinationData[0].description); 
+                    setDistance(DestinationData[0].distance); 
+                    setTravel(DestinationData[0].travel); setImage(moon) }  } 
+                    style={{color:"white"}} to="/Destination"> Moon 
+                    <AnimLine initial = {{width: "0"}}  transition={{duration:1}} animate={{width:"100%"}}/>
+                    </Link>
+                   <Link className={color}
+                   onClick={()=> 
+                   {setName(DestinationData[1].name);
+                    setDiscription(DestinationData[1].description);
+                    setDistance(DestinationData[1].distance);
+                    setTravel(DestinationData[1].travel); setImage(mars)
+                    setColor("color-on")
+                 } }
+                      to="/Destination/Mars">
+                     Mars
+                 </Link>
+                   <Link
+                   onClick={()=> {setName(DestinationData[2].name); 
+                   setDiscription(DestinationData[2].description); 
+                   setDistance(DestinationData[2].distance); 
+                   setTravel(DestinationData[2].travel); setImage(Europa) } } to="/Destination/Europa"> Europa 
+                   </Link>
+
+                   <Link
+                   onClick={()=> {setName(DestinationData[3].name);
+                    setDiscription(DestinationData[3].description);
+                    setDistance(DestinationData[3].distance); 
+                    setTravel(DestinationData[3].travel); setImage(Titan) } } to="/Destination/Titan"> Titan
+                    </Link>
                  </PickupDestination>
-                 <Outlet/>
+                
                  <DestinationName>
-                    <h1>MOON</h1>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-                      quasi magni iusto dolores aut assumenda aspernatur aliquid provident debitis 
-                      architecto. Accusamus vel dolore tempora quae natus. Hic eos fugit magnam?
-                      </p>
+                    <h1>{name}</h1>
+                    <p> {discription} </p>
                    <Line></Line>
                  </DestinationName>
                  <AboutDestination>
                      <AvgDistance>
                         <h5>Avg.Distance</h5>
-                        <h2>384,400KM</h2>
+                        <h2>{distance}</h2>
                      </AvgDistance>
                      <TravelTime>
                         <h5>ESt.Travel Time</h5>
-                        <h2>3 DAYS</h2>
+                        <h2>{travel}</h2>
                      </TravelTime>
                  </AboutDestination>
              </DestinationContent>
@@ -52,8 +92,7 @@ import data from "../data.json"
      )
  }
  
- 
- 
+
  
  const Main = styled.div`
      background-image: url(${backgroundImage});
@@ -68,21 +107,57 @@ import data from "../data.json"
      display: flex;
      align-items: center;
      justify-content: space-around;
+     @media (max-width: 1000px){
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+     }
      
  `
+  
+  const Heading  = styled.div`
+       color: #ffffff;
+      text-transform: uppercase;
+      font-size: 20px;
+      font-family: 'Barlow Condensed', sans-serif;
+      h2{
+        font-weight: 400;
+        letter-spacing: 2px;
+        text-align:start;
+        @media (max-width: 1000px){
+        text-align: center;
+     }
+      }
+      span{
+          color: #555555;
+      }
+  `
  
  const DestinationView = styled.div`
+     img{
+         padding-top: 4rem;
+         @media (max-width: 1000px){
+         width: 50%;
+         display: block;
+         margin: auto;
+         padding-bottom: 1rem   ;
+     }
+        }
      
  `
  const DestinationContent = styled.div`
      width: 40%;
-    
+     @media (max-width: 1000px){
+         text-align: center;
+         width: 100%;
+         text-align: center;
+     }
  `
  
  const PickupDestination = styled.div`
    display: flex;
    justify-content: space-between;
-   width: 55%;
+   width: 60%;
      a{
          color: #D0D6f9;
          font-size: 22px;
@@ -90,6 +165,20 @@ import data from "../data.json"
          font-family: 'Barlow Condensed', sans-serif;
          letter-spacing: 2px;
      }
+     .color-on{
+      color: white;
+     }
+     a:hover{
+         color: white;
+     }
+     @media (max-width: 1000px){
+     align-items: center;
+     justify-content: space-between;
+     margin: auto;
+      }
+      @media (max-width: 400px){
+          width: 95%;
+      }
  `
  const  DestinationName = styled.div`
     padding-top: 15px;
@@ -98,12 +187,17 @@ import data from "../data.json"
          font-family: 'Bellefair', serif;
          font-weight: 400;
          padding: 20px 20px 20 0px;
+         text-transform: uppercase;
      }
      p{
          line-height: 1.6;
          font-size: 18px;
          width: 80%;
+         @media (max-width: 1000px){
+         width: 100%;
      }
+     }
+     
  `
  
  const Line = styled.div`
@@ -111,13 +205,29 @@ import data from "../data.json"
      width: 80%;
      margin: 30px 0px ;
      background-color: #D0D6f9;
+     @media (max-width: 1000px){
+         width: 100%;
+     }
+
  `
  
  const AboutDestination = styled.div`
-         display: flex;
+     display: flex;
      justify-content: start;
      width: 80%;
      text-transform: uppercase;
+     h2:hover{
+         color: #D0D6F9;
+     }
+     @media (max-width: 1000px){
+         width: 100%;
+         justify-content: center;
+     }
+ `
+ const AnimLine = styled(motion.div)`
+      width: 0%;
+       height: 3px;
+       background-color: #ffffff;
  `
  
  const AvgDistance = styled.div`

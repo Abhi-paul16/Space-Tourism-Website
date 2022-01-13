@@ -5,16 +5,20 @@ import styled from 'styled-components'
 //framer motion
 import { motion } from 'framer-motion';
 
+
 //icons
 import logo from "../images/shared/logo.svg"
 import hamburger from "../images/shared/icon-hamburger.svg"
 import close from "../images/shared/icon-close.svg"
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 
 const Navbar = () => {
     const [burgerStatus , setBurgerStatus] = useState(false);
+    const location  = useLocation()
+    const  AnimPath  = location.pathname;
 
+  console.log(AnimPath)
     return (
         <Nav>
             <a href="{#}">
@@ -26,18 +30,23 @@ const Navbar = () => {
            </Smalline>
 
             <Menu>
-                <motion.div >
+                <div >
                 <Link to=''> 00 Home  </Link>
-              <Line initial = {{width: "0"}}  transition={{duration:1}} animate={{width:"100%"}} />
-                </motion.div>
+                <Line initial = {{width: "0"}}  transition={{duration:1}} animate={{width: AnimPath ==='/' ? "100%" : "0"}} />
+                </div>
              <div>
               <Link to="Destination"> 01 Destination</Link>
-              <Line initial = {{width: "0"}}  transition={{duration:1}} animate={{width:"100%"}} />
+              <Line initial = {{width: "0"}}  transition={{duration:1}} animate={{width: AnimPath ==='/Destination' ? "100%" : "0"}} />
 
              </div>
-              <Link to="" > 02 Crew      </Link>
+             <div>
+              <Link  to="Crew" > 02 Crew      </Link>
+              <Line  initial = {{width: "0"}}  transition={{duration:1}} animate={{width: AnimPath ==='/Crew' ? "100%" : "0"}}/>
+             </div>
+             <div>
               <Link to="" > 03 Technology </Link>
-
+              <Line  initial = {{width: "0"}}  transition={{duration:1}} animate={{width: AnimPath ==='/Technology' ? "100%" : "0"}}/>
+              </div>
             </Menu>
 
 
