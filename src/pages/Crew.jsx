@@ -1,5 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+//images
+// import 
 import Douglas from '../images/crew/image-douglas-hurley.png'
 const Crew = () => {
     return (
@@ -22,6 +25,12 @@ const Crew = () => {
                  <PeopleView>
                      <img src={Douglas} alt="" />
                  </PeopleView>
+                 <PeoplesLink>
+                     <Link to='/'></Link>
+                     <Link to='/'></Link>
+                     <Link to='/'></Link>
+                     <Link to='/'></Link>
+                 </PeoplesLink>
                  </ContentWrapper>     
         </div>
     )
@@ -38,6 +47,7 @@ const AboutPeople = styled.div`
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-image: url();
 `
 
 const Heading = styled.div`
@@ -55,5 +65,9 @@ const PeopleDiscription = styled.div`
 `
 const PeopleView = styled.div``
 
+
+const PeoplesLink = styled.div`
+    
+`
 
 export default Crew
